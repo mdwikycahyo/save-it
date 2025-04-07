@@ -1,0 +1,37 @@
+{% extends "base.html" %} 
+
+{% block content %}
+    <div class="flex h-screen">
+        <div class="bg-white w-[340px] p-4 m-auto rounded">
+            <div class="flex flex-col items-left text-left mb-3">
+                <h2 class="card-title text-2xl font-bold">Edit Bookmark</h2>
+                {% comment %} <p class="text-base-content/70">Keep the good stuff, all in one place.</p> {% endcomment %}
+            </div>
+            <form method="POST" action="">
+                {% csrf_token %}
+                <div class="mb-4">
+                    <label class="">
+                        <span class="label-text">URL</span>
+                    </label>
+                    <input type="text" name="url" value="{{ bookmark.url }}" placeholder="URL" class="w-full border border-gray-300 p-1"/>
+                </div>
+
+                <div class="mb-4">
+                    <label class="">
+                        <span class="label-text">Description</span>
+                    </label>
+                    <input type="text" name="description" value="{{ bookmark.description }}" placeholder="Description" class="w-full border border-gray-300 p-1"/>
+                </div>
+
+                <div class="mb-4">
+                    <label class="">
+                        <span class="label-text">Source</span>
+                    </label>
+                    <input type="text" name="source" value="{{ bookmark.source }}" placeholder="Source" class="w-full border border-gray-300 p-1"/>
+                </div>
+
+                <button type="submit" class="w-full bg-green-300 p-1 cursor-pointer">Save</button>
+            </form>
+        </div>
+    </div>
+{% endblock %}

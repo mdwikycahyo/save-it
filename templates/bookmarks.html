@@ -1,0 +1,65 @@
+{% extends "base.html" %} {% block content %}
+<div class="flex h-screen">
+  <div class="w-[800px] bg-white m-auto p-6 rounded-xl shadow-md">
+    <div class="flex items-center justify-between">
+      <h1 class="text-xl font-semibold mb-4">Things Worth Revisiting:</h1>
+      <a class="mb-3" href="{% url 'add-bookmark' %}">
+        <button
+          class="bg-green-100 hover:bg-green-400 p-2 rounded-md font-semibold"
+        >
+          + Add Bookmark
+        </button>
+      </a>
+    </div>
+
+    <table class="border border-gray-300 w-full mb-4">
+      <thead>
+        <tr class="bg-gray-200 text-left">
+          <th class="border border-gray-300 p-2">URL</th>
+          <th class="border border-gray-300 p-2">Description</th>
+          <th class="border border-gray-300 p-2">Source</th>
+          <th class="border border-gray-300 p-2">Action</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% if bookmarks %} {% for bookmark in bookmarks %}
+        <tr class="hover:bg-gray-50">
+          <td class="border border-gray-300 p-2 break-all">
+            <a
+              href="{{ bookmark.url }}"
+              class="text-blue-600 underline"
+              target="_blank"
+              >Visit</a
+            >
+          </td>
+          <td class="border border-gray-300 p-2">{{ bookmark.description }}</td>
+          <td class="border border-gray-300 p-2">{{ bookmark.source }}</td>
+          <td class="border border-gray-300 p-2">
+            <a href="{% url 'edit-bookmark' bookmark.id %}" class="text-green-600">Edit</a> |
+            <a
+              href="{% url 'delete-bookmark' bookmark.id %}"
+            >
+              <button class="text-red-600 cursor-pointer">Delete</button>
+            </a>
+          </td>
+        </tr>
+        {% endfor %} {% else %}
+        <tr>
+          <td colspan="4" class="text-center p-4 text-gray-500">
+            No saved items yet. Start collecting your online gems!
+          </td>
+        </tr>
+        {% endif %}
+      </tbody>
+    </table>
+    {% comment %} <form method="post">
+      {% csrf_token %}
+      <button
+        class="w-full cursor-pointer bg-green-300 hover:bg-green-400 p-2 rounded-md font-semibold"
+      >
+        Simulate Long Process Using Task Queue
+      </button>
+    </form> {% endcomment %}
+  </div>
+</div>
+{% endblock %}
